@@ -640,7 +640,6 @@ theme = SubResource("Theme_fcgdc")
 horizontal_scroll_mode = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer/ScrollContainer"]
-custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 70
