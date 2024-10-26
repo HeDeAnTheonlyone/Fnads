@@ -26,7 +26,7 @@ func _ready() -> void:
 	populate_email_list();
 	visibility_changed.connect(show_emails); #Do not connect in editor, it will cause crashes.
 
-	show_emails(); #DEBUG
+	# show_emails(); #DEBUG
 
 
 func populate_email_list() -> void:
@@ -46,9 +46,7 @@ func show_emails(tab: String = "") -> void:
 		if (i < sent_emails):
 			if (emails[i].get(tab) if emails[i].get(tab) != null else true):
 				email_list.get_child(i).visible = true;
-				continue;
-
-		email_list.get_child(i).visible = false;
+		else: email_list.get_child(i).visible = false;
 
 
 func on_open_email(id: int) -> void:
