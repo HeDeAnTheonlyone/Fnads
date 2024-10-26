@@ -408,7 +408,7 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7uese")
-sent_emails = 3
+sent_emails = 0
 emails = Array[ExtResource("2_l0nkc")]([SubResource("Resource_56mil"), SubResource("Resource_8ttxc"), SubResource("Resource_wv3bj")])
 
 [node name="Control" type="ColorRect" parent="."]
