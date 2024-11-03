@@ -1,0 +1,158 @@
+[gd_scene load_steps=11 format=3 uid="uid://bnoiiqj0uq22u"]
+
+[ext_resource type="Shader" path="res://assets/shaders/tile.gdshader" id="1_h6oni"]
+[ext_resource type="PackedScene" uid="uid://b1gd5hqggddos" path="res://ui/breakerbox/breaker.tscn" id="1_ok4xa"]
+[ext_resource type="Texture2D" uid="uid://b0yxd3fv2m50g" path="res://assets/sprites/breakerbox_cover.png" id="2_um63r"]
+[ext_resource type="Texture2D" uid="uid://b8g3pcnofbice" path="res://assets/sprites/minawan_e_shock.png" id="4_ayd0d"]
+[ext_resource type="Texture2D" uid="uid://bj7o0p1hhy48h" path="res://assets/sprites/wanning_sticker.png" id="5_c0tdu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aoenr"]
+bg_color = Color(0.808998, 0.808998, 0.808998, 1)
+draw_center = false
+border_width_left = 50
+border_width_top = 50
+border_width_right = 50
+border_width_bottom = 50
+border_color = Color(0.862745, 0.862745, 0.862745, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gfvgw"]
+bg_color = Color(0.635294, 0.635294, 0.635294, 1)
+border_width_left = 40
+border_width_top = 40
+border_width_right = 40
+border_width_bottom = 40
+border_color = Color(0.741385, 0.741385, 0.741385, 0.247059)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_e7mh4"]
+bg_color = Color(0.862745, 0.862745, 0.862745, 1)
+border_width_left = 50
+border_width_top = 50
+border_width_right = 50
+border_width_bottom = 50
+border_color = Color(0.699654, 0.699654, 0.699653, 1)
+border_blend = true
+corner_radius_top_left = 75
+corner_radius_top_right = 75
+corner_radius_bottom_right = 75
+corner_radius_bottom_left = 57
+shadow_color = Color(0, 0, 0, 0.196078)
+shadow_size = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_umvrt"]
+draw_center = false
+corner_radius_top_left = 1
+corner_radius_top_right = 1
+corner_radius_bottom_right = 1
+corner_radius_bottom_left = 1
+shadow_color = Color(0, 0, 0, 0.196078)
+shadow_size = 10
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gijt6"]
+shader = ExtResource("1_h6oni")
+shader_parameter/tileAmount = Vector2(5, 1)
+shader_parameter/tileTex = ExtResource("2_um63r")
+
+[node name="Breakerbox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_aoenr")
+
+[node name="Panel" type="Panel" parent="PanelContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_gfvgw")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Panel" type="Panel" parent="PanelContainer/Panel/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_e7mh4")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_top = 320
+theme_override_constants/margin_right = 100
+theme_override_constants/margin_bottom = 320
+
+[node name="Panel" type="Panel" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_umvrt")
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer"]
+material = SubResource("ShaderMaterial_gijt6")
+layout_mode = 2
+texture = ExtResource("2_um63r")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Breaker" parent="PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("1_ok4xa")]
+layout_mode = 2
+
+[node name="Breaker2" parent="PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("1_ok4xa")]
+layout_mode = 2
+
+[node name="Breaker3" parent="PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("1_ok4xa")]
+layout_mode = 2
+
+[node name="Breaker4" parent="PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("1_ok4xa")]
+layout_mode = 2
+
+[node name="Breaker5" parent="PanelContainer/MarginContainer/HBoxContainer" instance=ExtResource("1_ok4xa")]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 99.0
+offset_top = 163.0
+offset_right = -1546.0
+offset_bottom = -646.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -0.479966
+texture = ExtResource("5_c0tdu")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1050.0
+offset_top = 698.0
+offset_right = -595.0
+offset_bottom = -111.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = 0.0872665
+texture = ExtResource("4_ayd0d")
+expand_mode = 1
+stretch_mode = 5

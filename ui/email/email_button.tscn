@@ -1,0 +1,100 @@
+[gd_scene load_steps=9 format=3 uid="uid://b4ouvbtiugsb2"]
+
+[ext_resource type="Script" path="res://ui/email/email_button.gd" id="1_htnva"]
+[ext_resource type="FontFile" uid="uid://b6x1pbobajmin" path="res://assets/fonts/vividly_extended.ttf" id="2_2535l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1r6tc"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_x7c3q"]
+content_margin_left = 50.0
+content_margin_top = 13.0
+content_margin_bottom = 10.0
+bg_color = Color(0.981849, 0.377668, 0.999999, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tbkk0"]
+content_margin_left = 50.0
+content_margin_bottom = 10.0
+bg_color = Color(0.996078, 0.619608, 1, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlkog"]
+content_margin_left = 10.0
+content_margin_top = 3.0
+content_margin_right = 10.0
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0q32l"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ga67l"]
+content_margin_top = 3.0
+
+[node name="EmailButton" type="PanelContainer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -23.0
+offset_bottom = 23.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_1r6tc")
+script = ExtResource("1_htnva")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 2
+focus_mode = 0
+theme_override_styles/hover = SubResource("StyleBoxFlat_x7c3q")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_x7c3q")
+theme_override_styles/normal = SubResource("StyleBoxFlat_tbkk0")
+alignment = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+mouse_filter = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Info" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_2535l")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_jlkog")
+text = "!"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+theme_override_styles/separator = SubResource("StyleBoxEmpty_0q32l")
+
+[node name="Title" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 1
+theme_override_fonts/font = ExtResource("2_2535l")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ga67l")
+text = "Test Mail"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="Button" to="." method="on_button_pressed"]

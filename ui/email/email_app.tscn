@@ -1,10 +1,10 @@
 [gd_scene load_steps=25 format=4 uid="uid://d0i5c0ipvvith"]
 
-[ext_resource type="Script" path="res://ui/apps/email/email_app.gd" id="1_7uese"]
+[ext_resource type="Script" path="res://ui/email/email_app.gd" id="1_7uese"]
 [ext_resource type="FontFile" uid="uid://b6x1pbobajmin" path="res://assets/fonts/vividly_extended.ttf" id="2_c2gqq"]
-[ext_resource type="Script" path="res://ui/apps/email/email_data.gd" id="2_l0nkc"]
+[ext_resource type="Script" path="res://ui/email/email_data.gd" id="2_l0nkc"]
 [ext_resource type="Texture2D" uid="uid://r6yv3yj2dane" path="res://assets/placeholder_sprites/search.png" id="3_gn4ci"]
-[ext_resource type="Texture2D" uid="uid://chmox6wvyvbr3" path="res://assets/placeholder_sprites/close.png" id="4_vca3o"]
+[ext_resource type="Texture2D" uid="uid://chmox6wvyvbr3" path="res://assets/sprites/close.png" id="4_vca3o"]
 
 [sub_resource type="Resource" id="Resource_56mil"]
 script = ExtResource("2_l0nkc")
@@ -365,12 +365,16 @@ content_margin_top = 3.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0sm1l"]
 bg_color = Color(1, 0.866667, 1, 1)
+border_color = Color(1, 1, 1, 0)
 corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
 
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_p2jp1"]
 color = Color(0.890196, 0.807843, 0.933333, 1)
-grow_begin = 100.0
-grow_end = 100.0
+grow_begin = 30.0
+grow_end = 30.0
 thickness = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bwf2j"]
@@ -408,6 +412,7 @@ offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7uese")
+sent_emails = 3
 emails = Array[ExtResource("2_l0nkc")]([SubResource("Resource_56mil"), SubResource("Resource_8ttxc"), SubResource("Resource_wv3bj")])
 
 [node name="Control" type="ColorRect" parent="."]
@@ -522,20 +527,21 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 50
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Sidebar/MainScreen"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="Sidebar/MainScreen/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Sidebar/MainScreen"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 
-[node name="Panel" type="Panel" parent="Sidebar/MainScreen/HBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Sidebar/MainScreen/MarginContainer"]
 layout_mode = 2
+
+[node name="Panel" type="Panel" parent="Sidebar/MainScreen/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_wxmdb")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Sidebar/MainScreen/HBoxContainer/MarginContainer/Panel"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Sidebar/MainScreen/MarginContainer/HBoxContainer/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -543,20 +549,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Sidebar/MainScreen/HBoxContainer/MarginContainer/Panel/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Sidebar/MainScreen/MarginContainer/HBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="TextureRect" type="TextureRect" parent="Sidebar/MainScreen/HBoxContainer/MarginContainer/Panel/HBoxContainer/MarginContainer"]
+[node name="TextureRect" type="TextureRect" parent="Sidebar/MainScreen/MarginContainer/HBoxContainer/Panel/HBoxContainer/MarginContainer"]
 layout_mode = 2
 texture = ExtResource("3_gn4ci")
 expand_mode = 2
 stretch_mode = 4
 
-[node name="LineEdit" type="LineEdit" parent="Sidebar/MainScreen/HBoxContainer/MarginContainer/Panel/HBoxContainer"]
+[node name="LineEdit" type="LineEdit" parent="Sidebar/MainScreen/MarginContainer/HBoxContainer/Panel/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
@@ -575,17 +581,23 @@ flat = true
 caret_blink = true
 caret_mid_grapheme = true
 
-[node name="TextureButton" type="TextureButton" parent="Sidebar/MainScreen/HBoxContainer"]
+[node name="TextureButton" type="TextureButton" parent="Sidebar/MainScreen/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 texture_normal = ExtResource("4_vca3o")
 
-[node name="EmailDisplayArea" type="Panel" parent="Sidebar/MainScreen"]
+[node name="EmailDisplayArea" type="MarginContainer" parent="Sidebar/MainScreen"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Panel" type="Panel" parent="Sidebar/MainScreen/EmailDisplayArea"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_0sm1l")
 
-[node name="EmailList" type="MarginContainer" parent="Sidebar/MainScreen/EmailDisplayArea"]
+[node name="EmailList" type="MarginContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -595,17 +607,18 @@ grow_vertical = 2
 theme_override_constants/margin_left = 30
 theme_override_constants/margin_top = 30
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailList"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailList"]
 layout_mode = 2
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailList/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailList/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="EmailContent" type="MarginContainer" parent="Sidebar/MainScreen/EmailDisplayArea"]
+[node name="EmailContent" type="MarginContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -617,10 +630,10 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent"]
 layout_mode = 2
 
-[node name="Subject" type="Label" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer"]
+[node name="Subject" type="Label" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -628,30 +641,30 @@ theme_override_fonts/font = ExtResource("2_c2gqq")
 theme_override_font_sizes/font_size = 48
 text = "-The subject of the email here-"
 
-[node name="HSeparator" type="HSeparator" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer"]
+[node name="HSeparator" type="HSeparator" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 50
 theme_override_styles/separator = SubResource("StyleBoxLine_p2jp1")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme = SubResource("Theme_fcgdc")
 horizontal_scroll_mode = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 70
 
-[node name="MarginContainer" type="MarginContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="FromTo" type="Label" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="FromTo" type="Label" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 8
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -659,7 +672,7 @@ theme_override_fonts/font = ExtResource("2_c2gqq")
 theme_override_font_sizes/font_size = 32
 text = "-From-, -To-"
 
-[node name="Date" type="Label" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer"]
+[node name="Date" type="Label" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 10
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -667,11 +680,11 @@ theme_override_fonts/font = ExtResource("2_c2gqq")
 theme_override_font_sizes/font_size = 32
 text = "-Date: DD-MM-YYYY-"
 
-[node name="MarginContainer2" type="MarginContainer" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/margin_right = 20
 
-[node name="Message" type="Label" parent="Sidebar/MainScreen/EmailDisplayArea/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer2"]
+[node name="Message" type="Label" parent="Sidebar/MainScreen/EmailDisplayArea/Panel/EmailContent/VBoxContainer/ScrollContainer/VBoxContainer/MarginContainer2"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -684,4 +697,4 @@ autowrap_mode = 3
 [connection signal="pressed" from="Sidebar/VBoxContainer/MarginContainer3/VBoxContainer/Favourite" to="." method="on_favourite_button_pressed"]
 [connection signal="pressed" from="Sidebar/VBoxContainer/MarginContainer3/VBoxContainer/Sent" to="." method="on_sent_button_pressed"]
 [connection signal="pressed" from="Sidebar/VBoxContainer/MarginContainer3/VBoxContainer/Spam" to="." method="on_spam_button_pressed"]
-[connection signal="pressed" from="Sidebar/MainScreen/HBoxContainer/TextureButton" to="." method="on_close_button_pressed"]
+[connection signal="pressed" from="Sidebar/MainScreen/MarginContainer/HBoxContainer/TextureButton" to="." method="on_close_button_pressed"]
